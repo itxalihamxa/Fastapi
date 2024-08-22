@@ -23,17 +23,17 @@ def get_posts():
     main.cursor.execute("SELECT * FROM post ORDER BY id LIMIT 1 OFFSET 2")
     post = main.cursor.fetchall()
     return post
-
-@router.put('/userpost/{post_id}')
-def create_user(post: Postschemas, post_id: int):
-    main.cursor.execute("UPDATE post SET  id = %s, title = %s, content = %s, published = %s WHERE  id = %s RETURNING *",
-                        (post.id, post.title, post.content, post.published, post_id))
-
-    posts = main.cursor.fetchone()
-    main.conn.commit()
-    if posts is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='This post not exist')
-    return {'details': posts}
+#
+# @router.put('/userpost/{post_id}')
+# def create_user(post: Postschemas, post_id: int):
+#     main.cursor.execute("UPDATE post SET  id = %s, title = %s, content = %s, published = %s WHERE  id = %s RETURNING *",
+#                         (post.id, post.title, post.content, post.published, post_id))
+#
+#     posts = main.cursor.fetchone()
+#     main.conn.commit()
+#     if posts is None:
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='This post not exist')
+#     return {'details': posts}
 
 
 @router.get('/getpost/id')
